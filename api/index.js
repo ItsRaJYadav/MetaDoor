@@ -5,6 +5,7 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan'
 import path from 'path';
 dotenv.config();
 
@@ -22,7 +23,7 @@ mongoose
 const app = express();
 
 app.use(express.json());
-
+app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.listen(3000, () => {

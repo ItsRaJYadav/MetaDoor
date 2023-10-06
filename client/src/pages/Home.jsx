@@ -48,43 +48,48 @@ export default function Home() {
   return (
     <div>
       {/* top */}
-      <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
-        <h1 className='text-slate-700 font-bold text-3xl lg:text-6xl'>
-          Find your next <span className='text-slate-500'>perfect</span>
-          <br />
-          place with ease
-        </h1>
-        <div className='text-gray-400 text-xs sm:text-sm'>
-          Sahand Estate is the best place to find your next perfect place to
-          live.
-          <br />
-          We have a wide range of properties for you to choose from.
-        </div>
-        <Link
-          to={'/search'}
-          className='text-xs sm:text-sm text-blue-800 font-bold hover:underline'
-        >
-          Let's get started...
-        </Link>
-      </div>
+
 
       {/* swiper */}
       <Swiper navigation>
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
-            <SwiperSlide>
+            <SwiperSlide key={listing._id}>
               <div
+                className='relative h-[500px]'
                 style={{
-                  background: `url(${listing.imageUrls[0]}) center no-repeat`,
+                  backgroundImage: `url(${listing.imageUrls[0]})`,
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                 }}
-                className='h-[500px]'
-                key={listing._id}
-              ></div>
+              >
+                <div className='absolute bottom-0 left-0 p-4 bg-black bg-opacity-60 text-white'>
+                  <h2 className='text-2xl font-bold'>{listing.name}</h2>
+                  <p className='text-lg'>{`Price: $${listing.discountPrice}`}</p>
+                  <p className='text-lg'>{`Address: ${listing.address}`}</p>
+                  <Link to={`/listing/${listing._id}`}>
+                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2'>
+                      View Details
+                    </button>
+                  </Link>
+                </div>
+                <div className='invisible lg:visible absolute bottom-0 right-0 p-4 bg-black bg-opacity-60 text-white'>
+                  <p className='text-lg'>{`Bedrooms: ${listing.bedrooms}`}</p>
+                  <p className='text-lg'>{`Bathrooms: ${listing.bathrooms}`}</p>
+                  <p className='text-lg'>{`Furnished: ${listing.furnished ? 'Yes' : 'No'}`}</p>
+                  <p className='text-lg'>{`Parking: ${listing.parking ? 'Yes' : 'No'}`}</p>
+
+                </div>
+              </div>
             </SwiperSlide>
           ))}
       </Swiper>
+
+
+
+
 
       {/* listing results for offer, sale and rent */}
 
